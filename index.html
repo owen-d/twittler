@@ -11,14 +11,31 @@
         var $body = $('body');
         $body.html('');
 
-        var index = streams.home.length - 1;
-        while(index >= 0){
-          var tweet = streams.home[index];
+        
+        var counter = 0;
+
+        function pusher(){
+          index = streams.home.length;
+          var tweet = streams.home[counter];
           var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
-          $tweet.appendTo($body);
-          index -= 1;
+          var dated = tweet.created_at;
+          var monthList = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+          var dayList = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+          while(counter < index){
+          $tweet.text('@' + tweet.user + ' (' + dayList[dated.getDay()] + ', ' + monthList[dated.getMonth()] + ' ' + dated.getDate() + ' at ' + dated.getHours() + ':' + dated.getMinutes()  + '): ' + tweet.message);
+          $body.prepend($tweet);
+          counter++;
+
+
+          }
         }
+        
+        var refresh = function(){
+          pusher();
+          setTimeout(refresh, 3000);
+        };
+        refresh();
+      
 
       });
 
