@@ -3,13 +3,14 @@
   <head>
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
+    <link rel="stylesheet" href="main.css">
   </head>
   <body>
     <script>
 
       $(document).ready(function(){
         var $body = $('body');
-        $body.html('');
+        
 
         
         var counter = 0;
@@ -23,7 +24,7 @@
           var dayList = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
           while(counter < index){
           $tweet.text('@' + tweet.user + ' (' + dayList[dated.getDay()] + ', ' + monthList[dated.getMonth()] + ' ' + dated.getDate() + ' at ' + dated.getHours() + ':' + dated.getMinutes()  + '): ' + tweet.message);
-          $body.prepend($tweet);
+          $('ol').prepend($tweet);
           counter++;
 
 
@@ -40,5 +41,27 @@
       });
 
     </script>
+<!-- This is the html design-->
+<!-- Header-->
+      <header class ='header container'>
+        <h1 class = 'logo'>
+          <p>Twittler</p>
+        </h1>
+      </header>
+
+<!-- Main Content -->
+    <div class='break'>
+      <section class ='container feed'>
+        
+      </section>
+    </div>
+
+      <footer class='footer container'>
+        <small>&copy; Twittler</small>
+      </footer>
+
+
+
+
   </body>
 </html>
