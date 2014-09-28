@@ -23,9 +23,14 @@
           var monthList = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
           var dayList = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
           while(counter < index){
-          $tweet.text('@' + tweet.user + ' (' + dayList[dated.getDay()] + ', ' + monthList[dated.getMonth()] + ' ' + dated.getDate() + ' at ' + dated.getHours() + ':' + dated.getMinutes()  + '): ' + tweet.message);
-          $('ol').prepend($tweet);
-          counter++;
+            //$tweetClear here
+            $tweet.find('h4, p').remove();
+            //now put new information
+            $tweet.addClass('tweet-wrapper').append('<h4></h4>');
+            $tweet.children('h4').addClass('account-tweet').text('@' + tweet.user + ' on' + dayList[dated.getDay()] + ', ' + monthList[dated.getMonth()] + ' ' + dated.getDate() + ' at ' + dated.getHours() + ':' + dated.getMinutes()).append('<p></p>');
+            $tweet.children('h4').children('p').addClass('tweet').text(tweet.message);
+            $('.feed').prepend($tweet);
+            counter++;
 
 
           }
@@ -37,7 +42,7 @@
         };
         refresh();
       
-
+        
       });
 
     </script>
@@ -52,7 +57,6 @@
 <!-- Main Content -->
     <div class='break'>
       <section class ='container feed'>
-        
       </section>
     </div>
 
