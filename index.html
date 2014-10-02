@@ -16,7 +16,7 @@
         var counter = 0;
 
         function pusher(){
-          index = streams.home.length;
+          var index = streams.home.length;
           var tweet = streams.home[counter];
           var $tweet = $('<div></div>');
           var dated = tweet.created_at;
@@ -24,10 +24,12 @@
           var dayList = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
           while(counter < index){
             //$tweetClear here
-            $tweet.find('h4, p').remove();
+            $tweet.find('h4, p, a').remove();
             //now put new information
-            $tweet.addClass('tweet-wrapper').append('<h4></h4>');
-            $tweet.children('h4').addClass('account-tweet').text('@' + tweet.user + ' on' + dayList[dated.getDay()] + ', ' + monthList[dated.getMonth()] + ' ' + dated.getDate() + ' at ' + dated.getHours() + ':' + dated.getMinutes()).append('<p></p>');
+            $tweet.addClass('tweet-wrapper').append('<h4></h4>').append('<a></a>').append('<h4></h4>');
+            $tweet.children('a').addClass('account-tweet').text(tweet.user).attr('href', '#returnTop');
+            $tweet.children('h4').first().addClass('account-tweet').text('@');
+            $tweet.children('h4').last().addClass('account-tweet').text(' on ' + dayList[dated.getDay()] + ', ' + monthList[dated.getMonth()] + ' ' + dated.getDate() + ' at ' + dated.getHours() + ':' + dated.getMinutes()).append('<p></p>');
             $tweet.children('h4').children('p').addClass('tweet').text(tweet.message);
             $('.feed').prepend($tweet);
             counter++;
@@ -42,7 +44,10 @@
         };
         refresh();
       
-        
+        $('.feed').on('click', 'a', function(){
+          console.log('hi');
+        });
+
       });
 
     </script>
@@ -55,7 +60,7 @@
       </header>
 
 <!-- Main Content -->
-    <div class='break'>
+    <div class='break' id='returnTop'>
       <section class ='container feed'>
       </section>
     </div>
