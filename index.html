@@ -12,7 +12,7 @@
         var $body = $('body');
         var counter = 0;
         var timer;
-        var focus = 'shawndrost';
+        var focus = 'home';
         var monthList = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
         var dayList = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
         var pusher = function(focus) {
@@ -27,7 +27,6 @@
             else {
             tweet = streams.users[focus][counter];
             }
-            console.log(tweet);
             var dated = tweet.created_at;
             var $tweet = $('<div></div>');
             $tweet.addClass('tweet-wrapper').append('<h4></h4>').append('<a></a>').append('<h4></h4>');
@@ -49,10 +48,11 @@
         refresh();
       
         $('.feed').on('click', 'a', function(){
-          
+          focus = $(this).text().toString();
           clearTimeout(timer);
-          
-
+          $('.feed').children().remove();
+          counter = 0;
+          refresh();
         });
 
       });
