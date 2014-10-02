@@ -15,9 +15,17 @@
         
         var counter = 0;
 
-        function pusher(){
-          var index = streams.home.length;
-          var tweet = streams.home[counter];
+        function pusher(domain){
+          var index;
+          var tweet;
+          if (domain === 'home') {
+            index = streams.home.length;
+            tweet = streams.home[counter];
+          }
+          else {
+            index = streams.users[domain].length;
+            tweet = streams.users[domain][counter];
+          }
           var $tweet = $('<div></div>');
           var dated = tweet.created_at;
           var monthList = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -36,16 +44,25 @@
 
 
           }
+          console.log(index);
+          console.log(counter);
+          console.log(tweet);
+          
         }
         
+        var timer;
         var refresh = function(){
-          pusher();
-          setTimeout(refresh, 3000);
+          pusher('home');
+          timer = setTimeout(refresh, 3000);
+          return timer;
         };
         refresh();
       
         $('.feed').on('click', 'a', function(){
+          
+          clearTimeout(timer);
           console.log('hi');
+
         });
 
       });
