@@ -10,30 +10,26 @@
 
       $(document).ready(function(){
         var $body = $('body');
-        
-
-        
         var counter = 0;
-
-        function pusher(domain){
-          var index;
+        var timer;
+        var focus = 'shawndrost';
+        var monthList = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        var dayList = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+        var pusher = function(focus) {
+          
+          var index = (focus === 'home' ? streams.home.length : streams.users[focus].length);
           var tweet;
-          if (domain === 'home') {
-            index = streams.home.length;
-            tweet = streams.home[counter];
-          }
-          else {
-            index = streams.users[domain].length;
-            tweet = streams.users[domain][counter];
-          }
-          var $tweet = $('<div></div>');
-          var dated = tweet.created_at;
-          var monthList = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-          var dayList = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-          while(counter < index){
-            //$tweetClear here
-            $tweet.find('h4, p, a').remove();
-            //now put new information
+          
+          while (counter < index) {
+            if (focus === 'home') {
+            tweet = streams[focus][counter];
+            }
+            else {
+            tweet = streams.users[focus][counter];
+            }
+            console.log(tweet);
+            var dated = tweet.created_at;
+            var $tweet = $('<div></div>');
             $tweet.addClass('tweet-wrapper').append('<h4></h4>').append('<a></a>').append('<h4></h4>');
             $tweet.children('a').addClass('account-tweet').text(tweet.user).attr('href', '#returnTop');
             $tweet.children('h4').first().addClass('account-tweet').text('@');
@@ -42,17 +38,11 @@
             $('.feed').prepend($tweet);
             counter++;
 
-
           }
-          console.log(index);
-          console.log(counter);
-          console.log(tweet);
-          
-        }
-        
-        var timer;
+
+        };
         var refresh = function(){
-          pusher('home');
+          pusher(focus);
           timer = setTimeout(refresh, 3000);
           return timer;
         };
@@ -61,7 +51,7 @@
         $('.feed').on('click', 'a', function(){
           
           clearTimeout(timer);
-          console.log('hi');
+          
 
         });
 
