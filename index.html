@@ -54,6 +54,13 @@
           counter = 0;
           refresh();
         });
+        $('.reset').on('click', function(){
+          focus = 'home';
+          clearTimeout(timer);
+          $('.feed').children().remove();
+          counter = 0;
+          refresh();
+        });
 
       });
 
@@ -63,6 +70,7 @@
       <header class ='header container'>
         <h1 class = 'logo'>
           <p>Twittler</p>
+          <button type='button' class='reset'>Home</button>
         </h1>
       </header>
 
